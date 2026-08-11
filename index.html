@@ -3,17 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Research Hub - DThU Physics Edition</title>
-
-<!-- Import Matter.js cho Mô phỏng Vật Lý 2D -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<title>AI Research Hub - DThU Edition</title>
 
 <style>
 :root {
   --primary: #6366f1;
   --purple-grad: linear-gradient(135deg, #3b0764 0%, #4c1d95 40%, #1e1b4b 100%);
   --accent-cyan: #06b6d4;
-  --accent-glow: #00f2fe;
   --bg: #f8fafc;
   --card-bg: #ffffff;
   --text-main: #0f172a;
@@ -30,19 +26,8 @@ body{margin:0;font:15px/1.65 'Segoe UI',-apple-system,BlinkMacSystemFont,sans-se
 a{text-decoration:none;color:inherit}
 button,input{font:inherit}
 
-/* CANVAS LAYER CHO VẬT THỂ VẬT LÝ - FIX LỖI KHÔNG SCROLL ĐƯỢC */
-#physics-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none; /* Cho phép cuộn trang xuyên qua Canvas */
-  z-index: 40;
-}
-
 /* HEADER - Glassmorphic Style & DThU Logo */
-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(226,232,240,0.8)}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(226,232,240,0.8)}
 .nav{max-width:1200px;margin:auto;min-height:75px;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
 
 .dthu-brand {
@@ -69,12 +54,12 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdro
 .links a:hover{color:#7c3aed}
 .menu{display:none;border:0;background:#f1f5f9;padding:10px;border-radius:10px;cursor:pointer}
 
-/* HERO SECTION - Wave Divider & Purple Gradient */
+/* HERO SECTION */
 .hero{color:white;background:var(--purple-grad);position:relative;padding-bottom:70px;overflow:hidden}
-.heroIn{max-width:1200px;margin:auto;padding:80px 24px 60px;display:grid;grid-template-columns:1fr 420px;gap:40px;align-items:center;position:relative;z-index:2}
+.heroIn{max-width:1200px;margin:auto;padding:80px 24px 60px;position:relative;z-index:2}
 .k{font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--accent-cyan);text-transform:uppercase;background:rgba(6,182,212,0.12);padding:6px 14px;border-radius:20px;display:inline-block;border:1px solid rgba(6,182,212,0.3)}
 h1{font-size:clamp(30px,4.2vw,50px);line-height:1.18;margin:16px 0 20px;font-weight:800;background:linear-gradient(180deg,#ffffff 0%,#e2e8f0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:#cbd5e1;font-size:16px;max-width:580px;margin-bottom:24px}
+.hero p{color:#cbd5e1;font-size:16px;max-width:680px;margin-bottom:24px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 .pill{padding:7px 14px;border:1px solid rgba(255,255,255,0.2);border-radius:99px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);font-size:12px;font-weight:600;color:#e2e8f0}
 
@@ -82,19 +67,6 @@ h1{font-size:clamp(30px,4.2vw,50px);line-height:1.18;margin:16px 0 20px;font-wei
 .wave-divider{position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;z-index:3}
 .wave-divider svg{position:relative;display:block;width:calc(100% + 1.3px);height:50px}
 .wave-divider .shape-fill{fill:var(--bg)}
-
-/* SOLAR SYSTEM & TECH AI CORE */
-.universe-stage{position:relative;width:360px;height:360px;margin:auto;display:flex;align-items:center;justify-content:center;perspective:1000px}
-.solar-flare{position:absolute;width:110%;height:110%;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.6) 0%,rgba(124,58,237,0.3) 40%,transparent 70%);opacity:0;pointer-events:none;transition:all 0.5s ease;transform:scale(0.5);z-index:1}
-.black-hole-ring{position:absolute;width:300px;height:300px;border-radius:50%;border:2px dashed var(--accent-cyan);box-shadow:0 0 40px rgba(6,182,212,0.6),inset 0 0 30px rgba(0,0,0,0.9);opacity:0;pointer-events:none;transition:all 0.5s ease;transform:scale(1.2) rotate(0deg);z-index:1}
-
-.sun-book{position:relative;width:130px;height:165px;background:linear-gradient(145deg,#1e1b4b,#311b92);border:2px solid var(--accent-cyan);border-radius:16px;box-shadow:0 0 30px rgba(6,182,212,0.5), inset 0 0 15px rgba(124,58,237,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:10;user-select:none;transition:transform 0.3s ease,box-shadow 0.3s ease}
-.sun-book::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(6,182,212,0.25),transparent 70%);border-radius:14px;pointer-events:none}
-.ai-chip-icon{width:56px;height:56px;background:rgba(6,182,212,0.15);border:2px solid var(--accent-cyan);border-radius:12px;display:grid;place-items:center;margin-bottom:8px;position:relative;box-shadow:0 0 15px var(--accent-cyan)}
-.ai-chip-icon svg{width:32px;height:32px;fill:none;stroke:var(--accent-glow);stroke-width:2}
-.sun-book-label{font-size:11px;font-weight:800;color:#e0e7ff;letter-spacing:1px;text-align:center}
-
-.planet{position:absolute;padding:8px 16px;background:rgba(15,23,42,0.9);backdrop-filter:blur(10px);border:1px solid var(--accent-cyan);border-radius:30px;color:#ffffff;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 0 15px rgba(6,182,212,0.4);pointer-events:none;opacity:0;z-index:5;transform:translate(0,0) scale(0)}
 
 /* MAIN CONTENT LAYOUT */
 .wrap{max-width:1200px;margin:auto;padding:40px 24px;position:relative;z-index:10}
@@ -108,16 +80,15 @@ section{scroll-margin-top:90px;margin-bottom:50px}
 .title{font-size:26px;font-weight:800;color:#1e1b4b;margin:0 0 12px}
 .lead{color:#475569;font-size:16px;line-height:1.7}
 
-/* CARDS GRID WITH SMOOTH SCALE */
+/* CARDS GRID */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
-.card{background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:24px;box-shadow:0 4px 20px rgba(15, 23, 42, 0.04);cursor:pointer;transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease}
-.card:hover{transform: scale(1.05) translateY(-6px);box-shadow: 0 20px 40px rgba(124, 58, 237, 0.12);border-color: rgba(124, 58, 237, 0.4)}
+.card{background:var(--card-bg);border:1px solid var(--border-light);border-radius:20px;padding:24px;box-shadow:0 4px 20px rgba(15, 23, 42, 0.04);transition: transform 0.2s ease, box-shadow 0.2s ease}
+.card:hover{transform: translateY(-4px);box-shadow: 0 12px 30px rgba(124, 58, 237, 0.1)}
 .card h3{font-size:16px;font-weight:700;margin:12px 0 6px;color:#1e1b4b}
 .card p{font-size:13px;color:var(--text-muted);margin:0}
 .num{font-size:32px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
 .callout{margin:24px 0;padding:20px 24px;border-left:5px solid #7c3aed;border-radius:0 16px 16px 0;background:#f5f3ff;color:#3b0764;font-size:14px}
-.warn{border-color:var(--warn);background:#fffbe0;color:#78350f}
 
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:24px 0}
 .flow div{text-align:center;background:white;border:1px solid var(--border-light);border-radius:16px;padding:18px 10px;font-size:13px;font-weight:600}
@@ -141,14 +112,11 @@ footer{background:#090d16;color:#94a3b8;padding:45px 24px;position:relative;z-in
 footer div{max-width:1200px;margin:auto}
 footer strong{color:white;font-size:16px}
 
-@media(max-width:850px){.heroIn{grid-template-columns:1fr}.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.grid,.flow{grid-template-columns:1fr}.heroIn{padding:50px 18px}.wrap{padding:28px 16px}}
 </style>
 </head>
 <body>
-
-<!-- Canvas vẽ hình ảnh vật thể tương tác vật lý (Chip & Logo AI) -->
-<canvas id="physics-canvas"></canvas>
 
 <header>
   <nav class="nav">
@@ -169,38 +137,14 @@ footer strong{color:white;font-size:16px}
 
 <section class="hero" id="top">
   <div class="heroIn">
-    <div>
-      <div class="k">ĐẠI HỌC ĐỒNG THÁP · CNTT · GIÁO DỤC</div>
-      <h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
-      <p>Nghiên cứu trực quan hóa tác động của ChatGPT, GitHub Copilot và các mô hình trí tuệ nhân tạo tạo sinh trong đào tạo CNTT.</p>
-      <div class="pills">
-        <span class="pill">Generative AI</span>
-        <span class="pill">ChatGPT</span>
-        <span class="pill">GitHub Copilot</span>
-        <span class="pill">Programming Education</span>
-      </div>
-    </div>
-    
-    <div class="universe-stage">
-      <div class="solar-flare" id="solarFlare"></div>
-      <div class="black-hole-ring" id="blackHole"></div>
-      
-      <div class="sun-book" id="sunBook">
-        <div class="ai-chip-icon">
-          <svg viewBox="0 0 24 24">
-            <rect x="5" y="5" width="14" height="14" rx="2"></rect>
-            <path d="M9 9h6v6H9z"></path>
-            <path d="M3 9h2M3 15h2M19 9h2M19 15h2M9 3v2M15 3v2M9 19v2M15 19v2"></path>
-          </svg>
-        </div>
-        <div class="sun-book-label">AI RESEARCH</div>
-      </div>
-
-      <div class="planet">🤖 ChatGPT</div>
-      <div class="planet">🚀 Copilot</div>
-      <div class="planet">💻 Codex</div>
-      <div class="planet">🧠 Neural AI</div>
-      <div class="planet">⚡ GenAI</div>
+    <div class="k">ĐẠI HỌC ĐỒNG THÁP · CNTT · GIÁO DỤC</div>
+    <h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
+    <p>Nghiên cứu tổng quan tác động của ChatGPT, GitHub Copilot và các mô hình trí tuệ nhân tạo tạo sinh trong đào tạo CNTT tại các cơ sở giáo dục đại học.</p>
+    <div class="pills">
+      <span class="pill">Generative AI</span>
+      <span class="pill">ChatGPT</span>
+      <span class="pill">GitHub Copilot</span>
+      <span class="pill">Programming Education</span>
     </div>
   </div>
 
@@ -220,15 +164,14 @@ footer strong{color:white;font-size:16px}
       <a href="#phuongphap">3. Phương pháp</a>
       <a href="#ketqua">4. Kết quả</a>
       <a href="#loiich">5. Lợi ích & hạn chế</a>
-      <a href="#dinhhuong">6. Định hướng</a>
-      <a href="#ketluan">7. Kết luận</a>
-      <a href="#thamkhao">8. Tài liệu tham khảo</a>
+      <a href="#ketluan">6. Kết luận</a>
+      <a href="#thamkhao">7. Tài liệu tham khảo</a>
     </aside>
 
     <div>
       <section id="tongquan">
         <h2 class="title">1. Tổng quan nghiên cứu</h2>
-        <p class="lead">Nghiên cứu đánh giá thực trạng và hiệu quả của Generative AI trong hỗ trợ học lập trình ở bậc đại học. Theo tài liệu nguồn, ChatGPT và GitHub Copilot có khả năng sinh mã nguồn, giải thích thuật toán và phản hồi lỗi, đồng thời mở ra cơ hội cá nhân hóa học tập.</p>
+        <p class="lead">Nghiên cứu đánh giá thực trạng và hiệu quả của Generative AI trong hỗ trợ học lập trình ở bậc đại học. ChatGPT và GitHub Copilot có khả năng sinh mã nguồn, giải thích thuật toán và phản hồi lỗi, đồng thời mở ra cơ hội cá nhân hóa học tập.</p>
         <div class="grid">
           <div class="card">
             <div class="num">05</div>
@@ -242,18 +185,15 @@ footer strong{color:white;font-size:16px}
           </div>
           <div class="card">
             <div class="num">3+</div>
-            <h3>Công cụ AI được đề cập</h3>
+            <h3>Công cụ AI phổ biến</h3>
             <p>ChatGPT, GitHub Copilot và OpenAI Codex.</p>
           </div>
-        </div>
-        <div class="callout">
-          <b>Lưu ý tương tác:</b> Hãy thử lấy chuột kéo và **quăng** các biểu tượng Icon AI / Chip vi mạch ở 2 bên màn hình! Bạn có thể lăn chuột cuộn trang bình thường mà không bị kẹt.
         </div>
       </section>
 
       <section id="muctieu">
         <h2 class="title">2. Mục tiêu nghiên cứu</h2>
-        <p class="lead">Nghiên cứu nhằm tổng quan các nghiên cứu thực nghiệm tiêu biểu, phân tích đa chiều lợi ích và hạn chế của Generative AI, từ đó cung cấp cơ sở để sinh viên và giảng viên CNTT khai thác AI như một công cụ hỗ trợ bền vững trong môi trường học thuật.</p>
+        <p class="lead">Nghiên cứu nhằm tổng quan các nghiên cứu thực nghiệm tiêu biểu, phân tích đa chiều lợi ích và hạn chế của Generative AI, từ đó cung cấp cơ sở để sinh viên và giảng viên CNTT khai thác AI như một công cụ hỗ trợ bền vững.</p>
       </section>
 
       <section id="phuongphap">
@@ -344,245 +284,20 @@ footer strong{color:white;font-size:16px}
 </footer>
 
 <script>
-function filterRefs(){const q=document.getElementById('q').value.trim().toLowerCase();document.querySelectorAll('.ref').forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?'block':'none')}
-function clearSearch(){document.getElementById('q').value='';filterRefs()}
-function toggleMenu(){const n=document.querySelector('.links');n.style.display=n.style.display==='flex'?'none':'flex'}
-
-// --- VẼ ICON / HÌNH ẢNH CHẤT LƯỢNG CAO LÊN TỪNG KHỐI VẬT THỂ VẬT LÝ ---
-function createGraphicTexture(type, color, width, height) {
-  const c = document.createElement('canvas');
-  c.width = width * 2; c.height = height * 2; // Hiển thị sắc nét Retina
-  const ctx = c.getContext('2d');
-  ctx.scale(2, 2);
-
-  // Khối Nền bo góc Glassmorphism
-  ctx.fillStyle = '#090d16';
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 2.5;
-  ctx.beginPath();
-  ctx.roundRect(4, 4, width - 8, height - 8, 14);
-  ctx.fill();
-  ctx.stroke();
-
-  // Hiệu ứng Glow
-  ctx.shadowColor = color;
-  ctx.shadowBlur = 12;
-
-  const cx = width / 2;
-  const cy = height / 2;
-
-  // Vẽ các loại HÌNH ẢNH ICON khác nhau
-  ctx.strokeStyle = color;
-  ctx.fillStyle = color;
-  ctx.lineWidth = 2;
-
-  if (type === 'chip') {
-    // Icon Chip Vi Mạch AI
-    ctx.strokeRect(cx - 12, cy - 12, 24, 24);
-    ctx.fillRect(cx - 6, cy - 6, 12, 12);
-    // Chân vi mạch
-    [ -8, 0, 8 ].forEach(p => {
-      ctx.fillRect(cx + p - 1, cy - 18, 2, 4);
-      ctx.fillRect(cx + p - 1, cy + 14, 2, 4);
-      ctx.fillRect(cx - 18, cy + p - 1, 4, 2);
-      ctx.fillRect(cx + 14, cy + p - 1, 4, 2);
-    });
-  } else if (type === 'react') {
-    // Icon React Orbit
-    ctx.beginPath(); ctx.ellipse(cx, cy, 18, 7, Math.PI / 4, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(cx, cy, 18, 7, -Math.PI / 4, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI * 2); ctx.fill();
-  } else if (type === 'python') {
-    // Icon Python Dual Snake
-    ctx.beginPath(); ctx.arc(cx - 5, cy - 5, 8, Math.PI, Math.PI * 1.5); ctx.stroke();
-    ctx.beginPath(); ctx.arc(cx + 5, cy + 5, 8, 0, Math.PI * 0.5); ctx.stroke();
-    ctx.fillRect(cx - 8, cy - 8, 4, 4);
-    ctx.fillRect(cx + 4, cy + 4, 4, 4);
-  } else if (type === 'brain') {
-    // Icon Mạng Thần Kinh Neural AI
-    [ [-10,-6], [10,-6], [0,8] ].forEach(pt => {
-      ctx.beginPath(); ctx.arc(cx + pt[0], cy + pt[1], 4, 0, Math.PI * 2); ctx.fill();
-    });
-    ctx.beginPath();
-    ctx.moveTo(cx - 10, cy - 6); ctx.lineTo(cx + 10, cy - 6);
-    ctx.lineTo(cx, cy + 8); ctx.closePath(); ctx.stroke();
-  } else if (type === 'code') {
-    // Icon Thẻ Tag Code </>
-    ctx.font = 'bold 18px monospace';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('</>', cx, cy);
-  } else if (type === 'js') {
-    // Icon JavaScript JS
-    ctx.font = '900 16px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('JS', cx, cy);
-  }
-
-  return c.toDataURL();
-}
-
-// --- ENGINE VẬT LÝ MATTER.JS ---
-const Engine = Matter.Engine,
-      Render = Matter.Render,
-      Runner = Matter.Runner,
-      Bodies = Matter.Bodies,
-      Composite = Matter.Composite,
-      Body = Matter.Body;
-
-const canvas = document.getElementById('physics-canvas');
-const engine = Engine.create();
-engine.gravity.x = 0; engine.gravity.y = 0; // Không trọng lực
-
-const render = Render.create({
-  canvas: canvas,
-  engine: engine,
-  options: {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    wireframes: false,
-    background: 'transparent'
-  }
-});
-
-Render.run(render);
-const runner = Runner.create();
-Runner.run(runner, engine);
-
-const physicsItems = [];
-let lastUserInteraction = Date.now();
-
-// Cấu hình các HÌNH ẢNH VẬT THỂ lơ lửng 2 bên
-const spawnConfig = [
-  { type: "chip", color: "#06b6d4", side: "left", offsetY: 160, w: 70, h: 70 },
-  { type: "react", color: "#38bdf8", side: "left", offsetY: 360, w: 75, h: 75 },
-  { type: "code", color: "#f59e0b", side: "left", offsetY: 560, w: 70, h: 70 },
-  
-  { type: "brain", color: "#00f2fe", side: "right", offsetY: 200, w: 75, h: 75 },
-  { type: "python", color: "#10b981", side: "right", offsetY: 400, w: 70, h: 70 },
-  { type: "js", color: "#eab308", side: "right", offsetY: 600, w: 65, h: 65 }
-];
-
-function initPhysicsBodies() {
-  const w = window.innerWidth;
-  spawnConfig.forEach(cfg => {
-    const homeX = cfg.side === 'left' ? 70 : w - 70;
-    const homeY = cfg.offsetY;
-    const texture = createGraphicTexture(cfg.type, cfg.color, cfg.w, cfg.h);
-    
-    const body = Bodies.rectangle(homeX, homeY, cfg.w, cfg.h, {
-      frictionAir: 0.03,
-      restitution: 0.85,
-      render: { sprite: { texture: texture } }
-    });
-
-    Composite.add(engine.world, body);
-    physicsItems.push({
-      body: body,
-      homeOffsetY: homeY,
-      side: cfg.side,
-      w: cfg.w, h: cfg.h
-    });
+function filterRefs(){
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  document.querySelectorAll('.ref').forEach(x => {
+    x.style.display = x.textContent.toLowerCase().includes(q) ? 'block' : 'none';
   });
 }
-
-initPhysicsBodies();
-
-// XỬ LÝ KÉO QUĂNG THÔNG MINH (KHÔNG LÀM KẸT LAN CHUỘT)
-let draggedBody = null;
-let dragOffset = { x: 0, y: 0 };
-let lastMousePos = { x: 0, y: 0 };
-let mouseVel = { x: 0, y: 0 };
-
-window.addEventListener('mousedown', (e) => {
-  const mx = e.clientX;
-  const my = e.clientY;
-  
-  // Kiểm tra xem người dùng có bấm trúng vật thể nào không
-  physicsItems.forEach(item => {
-    const b = item.body;
-    if (mx >= b.position.x - item.w/2 && mx <= b.position.x + item.w/2 &&
-        my >= b.position.y - item.h/2 && my <= b.position.y + item.h/2) {
-      draggedBody = b;
-      dragOffset = { x: b.position.x - mx, y: b.position.y - my };
-      lastMousePos = { x: mx, y: my };
-      lastUserInteraction = Date.now();
-    }
-  });
-});
-
-window.addEventListener('mousemove', (e) => {
-  if (draggedBody) {
-    const mx = e.clientX;
-    const my = e.clientY;
-    
-    mouseVel = { x: mx - lastMousePos.x, y: my - lastMousePos.y };
-    lastMousePos = { x: mx, y: my };
-
-    Body.setPosition(draggedBody, { x: mx + dragOffset.x, y: my + dragOffset.y });
-    Body.setVelocity(draggedBody, { x: 0, y: 0 });
-    lastUserInteraction = Date.now();
-  }
-});
-
-window.addEventListener('mouseup', () => {
-  if (draggedBody) {
-    // Quăng vật thể theo vận tốc chuột
-    Body.setVelocity(draggedBody, { x: mouseVel.x * 0.5, y: mouseVel.y * 0.5 });
-    draggedBody = null;
-    lastUserInteraction = Date.now();
-  }
-});
-
-// Trôi vật thể khi cuộn trang (Scroll Event)
-let lastScrollY = window.scrollY;
-window.addEventListener('scroll', () => {
-  const currentScrollY = window.scrollY;
-  const deltaY = currentScrollY - lastScrollY;
-  
-  physicsItems.forEach(item => {
-    if (item.body !== draggedBody) {
-      Body.setPosition(item.body, {
-        x: item.body.position.x,
-        y: item.body.position.y - deltaY * 0.35
-      });
-    }
-  });
-
-  lastScrollY = currentScrollY;
-});
-
-// Tự động trôi chậm về vị trí cũ (Home Magnet) sau 10-15s
-Matter.Events.on(engine, 'beforeUpdate', () => {
-  const timeSinceInteraction = (Date.now() - lastUserInteraction) / 1000;
-
-  if (timeSinceInteraction > 10) {
-    physicsItems.forEach(item => {
-      if (item.body === draggedBody) return;
-
-      const targetX = item.side === 'left' ? 70 : window.innerWidth - 70;
-      const targetY = item.homeOffsetY;
-
-      const dx = targetX - item.body.position.x;
-      const dy = targetY - item.body.position.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      if (distance > 5) {
-        const forceMagnitude = Math.min(distance * 0.00003, 0.0008);
-        Body.applyForce(item.body, item.body.position, {
-          x: dx * forceMagnitude,
-          y: dy * forceMagnitude
-        });
-      }
-    });
-  }
-});
-
-window.addEventListener('resize', () => {
-  render.canvas.width = window.innerWidth;
-  render.canvas.height = window.innerHeight;
-});
+function clearSearch(){
+  document.getElementById('q').value = '';
+  filterRefs();
+}
+function toggleMenu(){
+  const n = document.querySelector('.links');
+  n.style.display = n.style.display === 'flex' ? 'none' : 'flex';
+}
 </script>
 </body>
 </html>
