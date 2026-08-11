@@ -35,9 +35,29 @@ a{text-decoration:none;color:inherit}button,input{font:inherit}header{position:s
 
 .planet{position:absolute;padding:6px 12px;background:rgba(15,23,42,0.85);backdrop-filter:blur(8px);border:1px solid rgba(192,132,252,0.6);border-radius:20px;color:#f3e8ff;font-size:11px;font-weight:bold;white-space:nowrap;box-shadow:0 0 12px rgba(168,85,247,0.4);pointer-events:none;opacity:0;z-index:5;transform:translate(0,0) scale(0);transition:opacity 0.3s ease}
 
-/* --- PAGE STYLING CONTINUED --- */
+/* --- PAGE STYLING & CARD HOVER EFFECT --- */
 .wrap{max-width:1180px;margin:auto;padding:36px 20px}.layout{display:grid;grid-template-columns:245px 1fr;gap:30px}.toc{position:sticky;top:88px;height:max-content;background:white;border:1px solid var(--l);border-radius:15px;padding:17px}.toc b{font-size:13px}.toc a{display:block;color:var(--m);font-size:12px;padding:7px 8px;border-radius:7px}.toc a:hover{background:#eff6ff;color:var(--p)}
-section{scroll-margin-top:88px;margin-bottom:44px}.title{font-size:25px;margin:0 0 10px}.lead{color:#334155}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:18px}.card{background:var(--c);border:1px solid var(--l);border-radius:15px;padding:19px;box-shadow:0 5px 18px #0f172a09}.card h3{font-size:15px;margin:8px 0 5px}.card p{font-size:13px;color:var(--m);margin:0}.num{font-size:27px;font-weight:bold;color:var(--p)}
+section{scroll-margin-top:88px;margin-bottom:44px}.title{font-size:25px;margin:0 0 10px}.lead{color:#334155}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:18px}
+
+/* HIỆU ỨNG PHÓNG TO + SMOOTH CHO THẺ CARD */
+.card{
+  background:var(--c);
+  border:1px solid var(--l);
+  border-radius:15px;
+  padding:19px;
+  box-shadow:0 4px 12px rgba(15, 23, 42, 0.05);
+  cursor:pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  will-change: transform;
+}
+
+.card:hover{
+  transform: scale(1.05) translateY(-4px);
+  box-shadow: 0 16px 32px rgba(37, 99, 235, 0.12);
+  border-color: #cbd5e1;
+}
+
+.card h3{font-size:15px;margin:8px 0 5px}.card p{font-size:13px;color:var(--m);margin:0}.num{font-size:27px;font-weight:bold;color:var(--p)}
 .callout{margin:18px 0;padding:16px 18px;border-left:4px solid var(--p);border-radius:0 12px 12px 0;background:#eff6ff}.warn{border-color:var(--o);background:#fff7ed}
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0}.flow div{text-align:center;background:white;border:1px solid var(--l);border-radius:12px;padding:14px;font-size:12px}.flow b{display:block;color:var(--p)}
 .table{overflow:auto;background:white;border:1px solid var(--l);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:740px}th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--l);font-size:13px;vertical-align:top}th{background:#f8fafc;font-size:12px;color:#475569}tr:last-child td{border:0}.badge{display:inline-block;border-radius:99px;padding:4px 8px;font-size:10px;font-weight:bold}.good{background:#dcfce7;color:var(--g)}.bad{background:#fee2e2;color:var(--r)}
@@ -57,11 +77,10 @@ footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1
     <div>
       <div class="k">NGHIÊN CỨU · CNTT · GIÁO DỤC ĐẠI HỌC</div>
       <h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
-      <p>Rê chuột vào cuốn sách để kích hoạt vụ nổ quang năng và hệ vũ trụ tri thức AI!</p>
+      <p>Rê chuột vào cuốn sách để kích hoạt vũ trụ AI!</p>
       <div class="pills"><span class="pill">Generative AI</span><span class="pill">ChatGPT</span><span class="pill">GitHub Copilot</span><span class="pill">Programming Education</span><span class="pill">Literature Review</span></div>
     </div>
     
-    <!-- SOLAR SYSTEM INTERACTIVE CONTAINER -->
     <div class="universe-stage" id="universeStage">
       <div class="solar-flare" id="solarFlare"></div>
       <div class="black-hole-ring" id="blackHole"></div>
@@ -70,12 +89,11 @@ footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1
         <div class="sun-book-label">AI & CODE</div>
       </div>
 
-      <!-- Orbiting Planets -->
-      <div class="planet" data-icon="🤖">ChatGPT</div>
-      <div class="planet" data-icon="🚀">Copilot</div>
-      <div class="planet" data-icon="💻">Codex</div>
-      <div class="planet" data-icon="🧠">GenAI</div>
-      <div class="planet" data-icon="📚">Review</div>
+      <div class="planet">🤖 ChatGPT</div>
+      <div class="planet">🚀 Copilot</div>
+      <div class="planet">💻 Codex</div>
+      <div class="planet">🧠 GenAI</div>
+      <div class="planet">📚 Review</div>
     </div>
   </div>
 </section>
@@ -141,34 +159,23 @@ function filterRefs(){const q=document.getElementById('q').value.trim().toLowerC
 function clearSearch(){document.getElementById('q').value='';filterRefs()}
 function toggleMenu(){const n=document.querySelector('.links');n.style.display=n.style.display==='flex'?'none':'flex';n.style.position='absolute';n.style.top='68px';n.style.right='20px';n.style.flexDirection='column';n.style.background='#fff';n.style.padding='14px';n.style.border='1px solid #e2e8f0';n.style.borderRadius='12px'}
 
-/* --- SOLAR SYSTEM & BLACK HOLE JAVASCRIPT --- */
+/* SOLAR SYSTEM INTERACTION SCRIPT */
 const sunBook = document.getElementById('sunBook');
 const solarFlare = document.getElementById('solarFlare');
 const blackHole = document.getElementById('blackHole');
 const planets = document.querySelectorAll('.planet');
 
-let animFrame = null;
-let currentRadius = 0;
-let targetRadius = 0;
-let baseAngle = 0;
-let isHovered = false;
-let isImploding = false;
+let animFrame = null, currentRadius = 0, targetRadius = 0, baseAngle = 0, isHovered = false, isImploding = false;
+const orbitA = 135, orbitB = 75;
 
-// Ellipse orbit radii (a: horizontal radius, b: vertical radius)
-const orbitA = 135; 
-const orbitB = 75;
-
-// Render loop for smooth elliptical orbit & smooth implode transition
 function animate() {
-  baseAngle += isHovered ? 0.025 : 0.09; // accelerate rotation when being sucked in
-
+  baseAngle += isHovered ? 0.025 : 0.09;
   if (isHovered) {
-    currentRadius += (targetRadius - currentRadius) * 0.08; // explode outward
+    currentRadius += (targetRadius - currentRadius) * 0.08;
   } else if (isImploding) {
-    currentRadius += (0 - currentRadius) * 0.12; // suck into black hole
+    currentRadius += (0 - currentRadius) * 0.12;
     if (currentRadius < 2) {
-      currentRadius = 0;
-      isImploding = false;
+      currentRadius = 0; isImploding = false;
       blackHole.style.opacity = '0';
       blackHole.style.transform = 'scale(0.5) rotate(180deg)';
     }
@@ -177,18 +184,14 @@ function animate() {
   planets.forEach((planet, index) => {
     const angleOffset = (index / planets.length) * Math.PI * 2;
     const angle = baseAngle + angleOffset;
-
-    // Elliptical positioning equation
     const x = Math.cos(angle) * orbitA * (currentRadius / targetRadius || 0);
     const y = Math.sin(angle) * orbitB * (currentRadius / targetRadius || 0);
-    
-    // Scale planets slightly based on depth (Y axis simulation)
     const depthScale = 0.8 + (y / orbitB) * 0.25;
     const opacity = currentRadius > 5 ? Math.min(1, currentRadius / 30) : 0;
 
     planet.style.opacity = opacity;
     planet.style.transform = `translate(${x}px, ${y}px) scale(${depthScale * (currentRadius / targetRadius || 0)})`;
-    planet.style.zIndex = y > 0 ? 15 : 4; // depth sorting relative to central book
+    planet.style.zIndex = y > 0 ? 15 : 4;
   });
 
   if (currentRadius > 0.1 || isHovered) {
@@ -196,32 +199,21 @@ function animate() {
   }
 }
 
-// HOVER IN: Solar burst + Rumble + Elliptical Orbit
 sunBook.addEventListener('mouseenter', () => {
-  isHovered = true;
-  isImploding = false;
-  targetRadius = orbitA;
-
-  // Lighting & Shake effects
+  isHovered = true; isImploding = false; targetRadius = orbitA;
   sunBook.classList.add('rumble');
   solarFlare.style.opacity = '1';
   solarFlare.style.transform = 'scale(1.4)';
   blackHole.style.opacity = '0';
-
   cancelAnimationFrame(animFrame);
   animFrame = requestAnimationFrame(animate);
 });
 
-// HOVER OUT: Black Hole Pull / Implosion
 sunBook.addEventListener('mouseleave', () => {
-  isHovered = false;
-  isImploding = true;
-
-  // Remove Rumble, trigger Black Hole visuals
+  isHovered = false; isImploding = true;
   sunBook.classList.remove('rumble');
   solarFlare.style.opacity = '0';
   solarFlare.style.transform = 'scale(0.5)';
-  
   blackHole.style.opacity = '1';
   blackHole.style.transform = 'scale(1.1) rotate(360deg)';
 });
