@@ -18,11 +18,36 @@ section{scroll-margin-top:88px;margin-bottom:44px}.title{font-size:25px;margin:0
 .table{overflow:auto;background:white;border:1px solid var(--l);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:740px}th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--l);font-size:13px;vertical-align:top}th{background:#f8fafc;font-size:12px;color:#475569}tr:last-child td{border:0}.badge{display:inline-block;border-radius:99px;padding:4px 8px;font-size:10px;font-weight:bold}.good{background:#dcfce7;color:var(--g)}.bad{background:#fee2e2;color:var(--r)}
 .search{display:flex;gap:8px;margin:14px 0}.search input{flex:1;padding:10px 12px;border:1px solid var(--l);border-radius:10px;outline:0}.search button{border:0;background:var(--p);color:white;border-radius:10px;padding:0 15px}.ref{padding:12px 0;border-bottom:1px solid var(--l);font-size:13px}
 footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1180px;margin:auto}footer strong{color:white}
+
+/* CSS CHO HIỆU ỨNG MỞ SÁCH VÀ BẮN CODE/CHIP */
+#book-overlay {
+    position: fixed; inset: 0; background: radial-gradient(circle, #0f172a 0%, #020617 100%);
+    z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease; overflow: hidden; cursor: pointer;
+}
+#book-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.book-container { position: relative; width: 140px; height: 100px; background: #2563eb; border-radius: 6px; box-shadow: 0 15px 35px rgba(37,99,235,0.4); display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.book-container::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 6px; background: rgba(0,0,0,0.2); }
+.book-text { color: white; font-weight: bold; font-size: 14px; text-align: center; padding: 0 10px; z-index: 2; }
+.particle { position: absolute; font-family: monospace; font-size: 13px; font-weight: bold; pointer-events: none; opacity: 0; transition: all 1s cubic-bezier(0.25, 1, 0.5, 1); white-space: nowrap; }
+.book-container.open { transform: scale(7); opacity: 0; }
+.hint-text { margin-top: 30px; color: #94a3b8; font-size: 14px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
 @media(max-width:850px){.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.grid,.flow{grid-template-columns:1fr}.heroIn{padding:52px 18px}.wrap{padding:28px 15px}}
 </style>
 </head>
 <body>
+
+<!-- MÀN HÌNH HIỆU ỨNG CUỐN SÁCH -->
+<div id="book-overlay" onclick="triggerBookEffect()">
+    <div class="book-container" id="bookBox">
+        <div class="book-text">📖 AI Hub</div>
+    </div>
+    <div class="hint-text">✨ Bấm vào đây để mở sách, kích hoạt Công nghệ & Chip AI! ✨</div>
+</div>
+
 <header><nav class="nav"><a class="brand" href="#top"><span class="logo">&lt;/&gt;</span>AI Research Hub</a>
 <div class="links"><a href="#tongquan">Tổng quan</a><a href="#phuongphap">Phương pháp</a><a href="#ketqua">Kết quả</a><a href="#loiich">Lợi ích</a><a href="#ketluan">Kết luận</a></div>
 <button class="menu" onclick="toggleMenu()">☰</button></nav></header>
@@ -88,7 +113,72 @@ footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1
 </div></section>
 </div></div></main>
 <footer><div><strong>AI Research Hub</strong><br>Website trực quan hóa nội dung nghiên cứu về ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên CNTT.<br><small>Nội dung được xây dựng theo tài liệu PDF được cung cấp.</small></div></footer>
+
 <script>
+// SCRIPT KÍCH HOẠT HIỆU ỨNG SÁCH & BẮN CODE, CHIP
+function triggerBookEffect() {
+    const bookBox = document.getElementById('bookBox');
+    const overlay = document.getElementById('book-overlay');
+    
+    // Mảng chứa các đoạn code, tên chip, công nghệ bắn ra
+    const items = [
+        "💻 const ai = true;", 
+        "⚡ NPU Chip M4", 
+        "🧠 Neural Network", 
+        "⚙️ GPU Core RTX", 
+        "🔍 GitHub Copilot", 
+        "🚀 import generative_ai", 
+        "📦 RAM 64GB DDR5", 
+        "💡 function optimizeCode()", 
+        "🔌 Transistor 3nm", 
+        "🌐 OpenAI API", 
+        "📊 System.out.println('AI')", 
+        "⚡ Quantum Processor"
+    ];
+
+    // Tạo các phần tử code/chip bay ra xung quanh
+    items.forEach((text, index) => {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.innerText = text;
+        
+        // Màu sắc ngẫu nhiên cho công nghệ/code (Xanh dương, xanh lá, cam, trắng)
+        const colors = ['#60a5fa', '#34d399', '#f472b6', '#fbbf24', '#ffffff'];
+        particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Vị trí xuất phát từ tâm màn hình
+        particle.style.left = '50%';
+        particle.style.top = '50%';
+        
+        overlay.appendChild(particle);
+
+        // Tính toán góc bắn ngẫu nhiên theo hình tròn
+        const angle = (index / items.length) * 2 * Math.PI;
+        const distance = 180 + Math.random() * 220; // Khoảng cách bay ra
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance;
+        const rot = (Math.random() - 0.5) * 60; // Xoay nhẹ góc
+
+        // Kích hoạt animation sau một khoảng khắc ngắn
+        setTimeout(() => {
+            particle.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(1.2)`;
+            particle.style.opacity = '1';
+        }, 30);
+
+        // Mờ dần sau khi bay ra
+        setTimeout(() => {
+            particle.style.opacity = '0';
+        }, 700);
+    });
+
+    // Phóng to cuốn sách và ẩn màn hình chờ
+    bookBox.classList.add('open');
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+    }, 600);
+}
+
+// Các hàm chức năng sẵn có của trang web
 function filterRefs(){const q=document.getElementById('q').value.trim().toLowerCase();document.querySelectorAll('.ref').forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?'block':'none')}
 function clearSearch(){document.getElementById('q').value='';filterRefs()}
 function toggleMenu(){const n=document.querySelector('.links');n.style.display=n.style.display==='flex'?'none':'flex';n.style.position='absolute';n.style.top='68px';n.style.right='20px';n.style.flexDirection='column';n.style.background='#fff';n.style.padding='14px';n.style.border='1px solid #e2e8f0';n.style.borderRadius='12px'}
