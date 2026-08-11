@@ -10,7 +10,32 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.65 Arial,"Segoe UI",sans-serif;color:var(--t);background:var(--bg)}
 a{text-decoration:none;color:inherit}button,input{font:inherit}header{position:sticky;top:0;z-index:10;background:#fffffff5;border-bottom:1px solid var(--l)}
 .nav{max-width:1180px;margin:auto;min-height:68px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:800;color:var(--p);display:flex;align-items:center;gap:10px}.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--i));color:white;display:grid;place-items:center}.links{display:flex;gap:18px;font-size:13px;color:#475569}.links a:hover{color:var(--p)}.menu{display:none;border:0;background:#eff6ff;padding:9px;border-radius:8px}
-.hero{color:white;background:linear-gradient(135deg,#123b9b,#4f46e5)}.heroIn{max-width:1180px;margin:auto;padding:70px 20px 78px}.k{font-size:12px;font-weight:bold;letter-spacing:1px;color:#bfdbfe}h1{font-size:clamp(32px,5vw,54px);line-height:1.12;max-width:900px;margin:12px 0 18px}.hero p{max-width:820px;color:#dbeafe}.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.pill{padding:6px 10px;border:1px solid #ffffff40;border-radius:99px;background:#ffffff18;font-size:12px}
+.hero{color:white;background:linear-gradient(135deg,#123b9b,#4f46e5);position:relative;overflow:hidden}
+.heroIn{max-width:1180px;margin:auto;padding:70px 20px 78px;display:grid;grid-template-columns:1fr 380px;gap:30px;align-items:center}
+.k{font-size:12px;font-weight:bold;letter-spacing:1px;color:#bfdbfe}h1{font-size:clamp(30px,4vw,48px);line-height:1.12;margin:12px 0 18px}.hero p{color:#dbeafe}.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.pill{padding:6px 10px;border:1px solid #ffffff40;border-radius:99px;background:#ffffff18;font-size:12px}
+
+/* --- SOLAR SYSTEM & BLACK HOLE INTERACTION --- */
+.universe-stage{position:relative;width:340px;height:340px;margin:auto;display:flex;align-items:center;justify-content:center;perspective:1000px}
+.solar-flare{position:absolute;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.8) 0%,rgba(99,102,241,0.4) 40%,transparent 70%);opacity:0;pointer-events:none;transition:opacity 0.4s ease,transform 0.4s ease;transform:scale(0.5);z-index:1}
+.black-hole-ring{position:absolute;width:280px;height:280px;border-radius:50%;border:2px dashed rgba(168,85,247,0.6);box-shadow:0 0 35px rgba(147,51,234,0.5),inset 0 0 25px rgba(0,0,0,0.8);opacity:0;pointer-events:none;transition:all 0.5s ease;transform:scale(1.2) rotate(0deg);z-index:1}
+
+.sun-book{position:relative;width:110px;height:145px;background:linear-gradient(145deg,#1e1b4b,#312e81);border:2px solid #a5b4fc;border-radius:12px;box-shadow:0 0 25px rgba(99,102,241,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;z-index:10;user-select:none;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.sun-book::before{content:"📖";font-size:46px;filter:drop-shadow(0 0 10px #818cf8)}
+.sun-book-label{font-size:11px;font-weight:bold;color:#e0e7ff;margin-top:6px;text-align:center;padding:0 6px}
+
+/* Animations */
+.rumble{animation:shakeRumble 0.35s ease-in-out infinite alternate}
+@keyframes shakeRumble{
+  0%{transform:translate(0,0) rotate(0deg) scale(1.05)}
+  25%{transform:translate(-3px,2px) rotate(-2deg) scale(1.08)}
+  50%{transform:translate(3px,-2px) rotate(2deg) scale(1.06)}
+  75%{transform:translate(-2px,-3px) rotate(-1deg) scale(1.09)}
+  100%{transform:translate(2px,3px) rotate(1deg) scale(1.07)}
+}
+
+.planet{position:absolute;padding:6px 12px;background:rgba(15,23,42,0.85);backdrop-filter:blur(8px);border:1px solid rgba(192,132,252,0.6);border-radius:20px;color:#f3e8ff;font-size:11px;font-weight:bold;white-space:nowrap;box-shadow:0 0 12px rgba(168,85,247,0.4);pointer-events:none;opacity:0;z-index:5;transform:translate(0,0) scale(0);transition:opacity 0.3s ease}
+
+/* --- PAGE STYLING CONTINUED --- */
 .wrap{max-width:1180px;margin:auto;padding:36px 20px}.layout{display:grid;grid-template-columns:245px 1fr;gap:30px}.toc{position:sticky;top:88px;height:max-content;background:white;border:1px solid var(--l);border-radius:15px;padding:17px}.toc b{font-size:13px}.toc a{display:block;color:var(--m);font-size:12px;padding:7px 8px;border-radius:7px}.toc a:hover{background:#eff6ff;color:var(--p)}
 section{scroll-margin-top:88px;margin-bottom:44px}.title{font-size:25px;margin:0 0 10px}.lead{color:#334155}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:18px}.card{background:var(--c);border:1px solid var(--l);border-radius:15px;padding:19px;box-shadow:0 5px 18px #0f172a09}.card h3{font-size:15px;margin:8px 0 5px}.card p{font-size:13px;color:var(--m);margin:0}.num{font-size:27px;font-weight:bold;color:var(--p)}
 .callout{margin:18px 0;padding:16px 18px;border-left:4px solid var(--p);border-radius:0 12px 12px 0;background:#eff6ff}.warn{border-color:var(--o);background:#fff7ed}
@@ -18,7 +43,7 @@ section{scroll-margin-top:88px;margin-bottom:44px}.title{font-size:25px;margin:0
 .table{overflow:auto;background:white;border:1px solid var(--l);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:740px}th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--l);font-size:13px;vertical-align:top}th{background:#f8fafc;font-size:12px;color:#475569}tr:last-child td{border:0}.badge{display:inline-block;border-radius:99px;padding:4px 8px;font-size:10px;font-weight:bold}.good{background:#dcfce7;color:var(--g)}.bad{background:#fee2e2;color:var(--r)}
 .search{display:flex;gap:8px;margin:14px 0}.search input{flex:1;padding:10px 12px;border:1px solid var(--l);border-radius:10px;outline:0}.search button{border:0;background:var(--p);color:white;border-radius:10px;padding:0 15px}.ref{padding:12px 0;border-bottom:1px solid var(--l);font-size:13px}
 footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1180px;margin:auto}footer strong{color:white}
-@media(max-width:850px){.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){.heroIn{grid-template-columns:1fr}.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.grid,.flow{grid-template-columns:1fr}.heroIn{padding:52px 18px}.wrap{padding:28px 15px}}
 </style>
 </head>
@@ -27,12 +52,33 @@ footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1
 <div class="links"><a href="#tongquan">Tổng quan</a><a href="#phuongphap">Phương pháp</a><a href="#ketqua">Kết quả</a><a href="#loiich">Lợi ích</a><a href="#ketluan">Kết luận</a></div>
 <button class="menu" onclick="toggleMenu()">☰</button></nav></header>
 
-<section class="hero" id="top"><div class="heroIn">
-<div class="k">NGHIÊN CỨU · CNTT · GIÁO DỤC ĐẠI HỌC</div>
-<h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
-<p>Website trực quan hóa nghiên cứu tổng quan tài liệu về ChatGPT, GitHub Copilot và các mô hình AI tạo sinh trong giáo dục lập trình.</p>
-<div class="pills"><span class="pill">Generative AI</span><span class="pill">ChatGPT</span><span class="pill">GitHub Copilot</span><span class="pill">Programming Education</span><span class="pill">Literature Review</span></div>
-</div></section>
+<section class="hero" id="top">
+  <div class="heroIn">
+    <div>
+      <div class="k">NGHIÊN CỨU · CNTT · GIÁO DỤC ĐẠI HỌC</div>
+      <h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
+      <p>Rê chuột vào cuốn sách để kích hoạt vụ nổ quang năng và hệ vũ trụ tri thức AI!</p>
+      <div class="pills"><span class="pill">Generative AI</span><span class="pill">ChatGPT</span><span class="pill">GitHub Copilot</span><span class="pill">Programming Education</span><span class="pill">Literature Review</span></div>
+    </div>
+    
+    <!-- SOLAR SYSTEM INTERACTIVE CONTAINER -->
+    <div class="universe-stage" id="universeStage">
+      <div class="solar-flare" id="solarFlare"></div>
+      <div class="black-hole-ring" id="blackHole"></div>
+      
+      <div class="sun-book" id="sunBook">
+        <div class="sun-book-label">AI & CODE</div>
+      </div>
+
+      <!-- Orbiting Planets -->
+      <div class="planet" data-icon="🤖">ChatGPT</div>
+      <div class="planet" data-icon="🚀">Copilot</div>
+      <div class="planet" data-icon="💻">Codex</div>
+      <div class="planet" data-icon="🧠">GenAI</div>
+      <div class="planet" data-icon="📚">Review</div>
+    </div>
+  </div>
+</section>
 
 <main class="wrap"><div class="layout"><aside class="toc"><b>📑 NỘI DUNG</b>
 <a href="#tongquan">1. Tổng quan</a><a href="#muctieu">2. Mục tiêu</a><a href="#phuongphap">3. Phương pháp</a><a href="#ketqua">4. Kết quả</a><a href="#loiich">5. Lợi ích & hạn chế</a><a href="#dinhhuong">6. Định hướng</a><a href="#ketluan">7. Kết luận</a><a href="#thamkhao">8. Tài liệu tham khảo</a></aside><div>
@@ -87,10 +133,98 @@ footer{background:#0f172a;color:#cbd5e1;padding:35px 20px}footer div{max-width:1
 <div class="ref">Lê Anh Vinh, & Trần Mỹ Ngọc. (2024). <i>Tác động của Trí tuệ nhân tạo (AI) đối với hệ thống giáo dục toàn cầu và giáo dục Việt Nam.</i> Tạp chí Khoa học Giáo dục Việt Nam, 20(5), 1–11.</div>
 </div></section>
 </div></div></main>
+
 <footer><div><strong>AI Research Hub</strong><br>Website trực quan hóa nội dung nghiên cứu về ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên CNTT.<br><small>Nội dung được xây dựng theo tài liệu PDF được cung cấp.</small></div></footer>
+
 <script>
 function filterRefs(){const q=document.getElementById('q').value.trim().toLowerCase();document.querySelectorAll('.ref').forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?'block':'none')}
 function clearSearch(){document.getElementById('q').value='';filterRefs()}
 function toggleMenu(){const n=document.querySelector('.links');n.style.display=n.style.display==='flex'?'none':'flex';n.style.position='absolute';n.style.top='68px';n.style.right='20px';n.style.flexDirection='column';n.style.background='#fff';n.style.padding='14px';n.style.border='1px solid #e2e8f0';n.style.borderRadius='12px'}
+
+/* --- SOLAR SYSTEM & BLACK HOLE JAVASCRIPT --- */
+const sunBook = document.getElementById('sunBook');
+const solarFlare = document.getElementById('solarFlare');
+const blackHole = document.getElementById('blackHole');
+const planets = document.querySelectorAll('.planet');
+
+let animFrame = null;
+let currentRadius = 0;
+let targetRadius = 0;
+let baseAngle = 0;
+let isHovered = false;
+let isImploding = false;
+
+// Ellipse orbit radii (a: horizontal radius, b: vertical radius)
+const orbitA = 135; 
+const orbitB = 75;
+
+// Render loop for smooth elliptical orbit & smooth implode transition
+function animate() {
+  baseAngle += isHovered ? 0.025 : 0.09; // accelerate rotation when being sucked in
+
+  if (isHovered) {
+    currentRadius += (targetRadius - currentRadius) * 0.08; // explode outward
+  } else if (isImploding) {
+    currentRadius += (0 - currentRadius) * 0.12; // suck into black hole
+    if (currentRadius < 2) {
+      currentRadius = 0;
+      isImploding = false;
+      blackHole.style.opacity = '0';
+      blackHole.style.transform = 'scale(0.5) rotate(180deg)';
+    }
+  }
+
+  planets.forEach((planet, index) => {
+    const angleOffset = (index / planets.length) * Math.PI * 2;
+    const angle = baseAngle + angleOffset;
+
+    // Elliptical positioning equation
+    const x = Math.cos(angle) * orbitA * (currentRadius / targetRadius || 0);
+    const y = Math.sin(angle) * orbitB * (currentRadius / targetRadius || 0);
+    
+    // Scale planets slightly based on depth (Y axis simulation)
+    const depthScale = 0.8 + (y / orbitB) * 0.25;
+    const opacity = currentRadius > 5 ? Math.min(1, currentRadius / 30) : 0;
+
+    planet.style.opacity = opacity;
+    planet.style.transform = `translate(${x}px, ${y}px) scale(${depthScale * (currentRadius / targetRadius || 0)})`;
+    planet.style.zIndex = y > 0 ? 15 : 4; // depth sorting relative to central book
+  });
+
+  if (currentRadius > 0.1 || isHovered) {
+    animFrame = requestAnimationFrame(animate);
+  }
+}
+
+// HOVER IN: Solar burst + Rumble + Elliptical Orbit
+sunBook.addEventListener('mouseenter', () => {
+  isHovered = true;
+  isImploding = false;
+  targetRadius = orbitA;
+
+  // Lighting & Shake effects
+  sunBook.classList.add('rumble');
+  solarFlare.style.opacity = '1';
+  solarFlare.style.transform = 'scale(1.4)';
+  blackHole.style.opacity = '0';
+
+  cancelAnimationFrame(animFrame);
+  animFrame = requestAnimationFrame(animate);
+});
+
+// HOVER OUT: Black Hole Pull / Implosion
+sunBook.addEventListener('mouseleave', () => {
+  isHovered = false;
+  isImploding = true;
+
+  // Remove Rumble, trigger Black Hole visuals
+  sunBook.classList.remove('rumble');
+  solarFlare.style.opacity = '0';
+  solarFlare.style.transform = 'scale(0.5)';
+  
+  blackHole.style.opacity = '1';
+  blackHole.style.transform = 'scale(1.1) rotate(360deg)';
+});
 </script>
-</body></html>
+</body>
+</html>
