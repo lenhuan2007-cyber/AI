@@ -10,6 +10,7 @@
   --primary: #6366f1;
   --purple-grad: linear-gradient(135deg, #3b0764 0%, #4c1d95 40%, #1e1b4b 100%);
   --accent-cyan: #06b6d4;
+  --accent-glow: #00f2fe;
   --bg: #f8fafc;
   --card-bg: #ffffff;
   --text-main: #0f172a;
@@ -56,12 +57,91 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdr
 
 /* HERO SECTION */
 .hero{color:white;background:var(--purple-grad);position:relative;padding-bottom:70px;overflow:hidden}
-.heroIn{max-width:1200px;margin:auto;padding:80px 24px 60px;position:relative;z-index:2}
+.heroIn{max-width:1200px;margin:auto;padding:80px 24px 60px;display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:center;position:relative;z-index:2}
 .k{font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--accent-cyan);text-transform:uppercase;background:rgba(6,182,212,0.12);padding:6px 14px;border-radius:20px;display:inline-block;border:1px solid rgba(6,182,212,0.3)}
 h1{font-size:clamp(30px,4.2vw,50px);line-height:1.18;margin:16px 0 20px;font-weight:800;background:linear-gradient(180deg,#ffffff 0%,#e2e8f0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:#cbd5e1;font-size:16px;max-width:680px;margin-bottom:24px}
+.hero p{color:#cbd5e1;font-size:16px;max-width:580px;margin-bottom:24px}
 .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 .pill{padding:7px 14px;border:1px solid rgba(255,255,255,0.2);border-radius:99px;background:rgba(255,255,255,0.08);backdrop-filter:blur(6px);font-size:12px;font-weight:600;color:#e2e8f0}
+
+/* KHỐI CUỐN SÁCH AI - PURE CSS (KHÔNG DÙNG CANVAS/MATTER.JS) */
+.hero-book-stage{
+  position: relative;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-glow {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, rgba(124, 58, 237, 0.2) 50%, transparent 70%);
+  border-radius: 50%;
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+.sun-book {
+  position: relative;
+  width: 150px;
+  height: 190px;
+  background: linear-gradient(145deg, #1e1b4b, #311b92);
+  border: 2px solid var(--accent-cyan);
+  border-radius: 18px;
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.4), inset 0 0 20px rgba(124, 58, 237, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: floatBook 5s ease-in-out infinite;
+}
+
+.sun-book:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 50px rgba(6, 182, 212, 0.7), inset 0 0 25px rgba(124, 58, 237, 0.7);
+}
+
+.ai-chip-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(6, 182, 212, 0.15);
+  border: 2px solid var(--accent-cyan);
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  box-shadow: 0 0 18px var(--accent-cyan);
+}
+
+.ai-chip-icon svg {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: var(--accent-glow);
+  stroke-width: 2;
+}
+
+.sun-book-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #e0e7ff;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+@keyframes floatBook {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 1; }
+}
 
 /* Wave Curve Bottom SVG Divider */
 .wave-divider{position:absolute;bottom:0;left:0;width:100%;overflow:hidden;line-height:0;z-index:3}
@@ -112,7 +192,7 @@ footer{background:#090d16;color:#94a3b8;padding:45px 24px;position:relative;z-in
 footer div{max-width:1200px;margin:auto}
 footer strong{color:white;font-size:16px}
 
-@media(max-width:850px){.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){.heroIn{grid-template-columns:1fr}.links{display:none}.menu{display:block}.layout{grid-template-columns:1fr}.toc{position:relative;top:0}.grid{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.grid,.flow{grid-template-columns:1fr}.heroIn{padding:50px 18px}.wrap{padding:28px 16px}}
 </style>
 </head>
@@ -137,14 +217,31 @@ footer strong{color:white;font-size:16px}
 
 <section class="hero" id="top">
   <div class="heroIn">
-    <div class="k">ĐẠI HỌC ĐỒNG THÁP · CNTT · GIÁO DỤC</div>
-    <h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
-    <p>Nghiên cứu tổng quan tác động của ChatGPT, GitHub Copilot và các mô hình trí tuệ nhân tạo tạo sinh trong đào tạo CNTT tại các cơ sở giáo dục đại học.</p>
-    <div class="pills">
-      <span class="pill">Generative AI</span>
-      <span class="pill">ChatGPT</span>
-      <span class="pill">GitHub Copilot</span>
-      <span class="pill">Programming Education</span>
+    <div>
+      <div class="k">ĐẠI HỌC ĐỒNG THÁP · CNTT · GIÁO DỤC</div>
+      <h1>Ứng dụng Generative AI trong hỗ trợ học lập trình của sinh viên Công nghệ thông tin</h1>
+      <p>Nghiên cứu tổng quan tác động của ChatGPT, GitHub Copilot và các mô hình trí tuệ nhân tạo tạo sinh trong đào tạo CNTT tại các cơ sở giáo dục đại học.</p>
+      <div class="pills">
+        <span class="pill">Generative AI</span>
+        <span class="pill">ChatGPT</span>
+        <span class="pill">GitHub Copilot</span>
+        <span class="pill">Programming Education</span>
+      </div>
+    </div>
+
+    <!-- KHỐI SÁCH AI NGHỆ THUẬT BẰNG CSS -->
+    <div class="hero-book-stage">
+      <div class="book-glow"></div>
+      <div class="sun-book">
+        <div class="ai-chip-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+            <path d="M9 9h6v6H9z"></path>
+            <path d="M3 9h2M3 15h2M19 9h2M19 15h2M9 3v2M15 3v2M9 19v2M15 19v2"></path>
+          </svg>
+        </div>
+        <div class="sun-book-label">AI RESEARCH</div>
+      </div>
     </div>
   </div>
 
